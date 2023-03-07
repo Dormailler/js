@@ -1,4 +1,4 @@
-var arr = [{
+var data = [{
 	"id": 1,
 	"name": "Yong",
 	"phone": "010-0000-0000",
@@ -79,21 +79,16 @@ var arr = [{
 	}]
 }]
 
-var result = [];
-
-function toArrays(value){ 
-    for (key in value){
-        if (key === "type"){
-            if (value[key] === "sk"){
-                result.push(value.name);
-            }
-        }
-        if (key === "childnode"){
-            value[key].forEach(element => toArrays(element));
-        }
-    }
+function find(data, array) {
+    data.forEach(obj => {
+        if(obj.type == "sk")
+            array.push(obj.name);
+        find(obj.childnode, array);
+    });
 }
 
-arr.forEach(element => toArrays(element));
-console.log(result);
+var array = []
 
+find(data, array);
+
+console.log(array);
